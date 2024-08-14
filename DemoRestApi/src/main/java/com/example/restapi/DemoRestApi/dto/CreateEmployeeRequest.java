@@ -14,7 +14,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@ToString
+
+
 public class CreateEmployeeRequest {
     private String name;
     private int age;

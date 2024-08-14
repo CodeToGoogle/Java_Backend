@@ -3,10 +3,13 @@ package com.example.restapi.DemoRestApi.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Builder
+@ToString
+
 public class Employee {
 
 
@@ -18,13 +21,7 @@ public class Employee {
     private Long createdOn;
     private Long updatedOn;
 
-    public Employee(String id, String name, int age, Department department, Address address, Long createdOn, Long updatedOn) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.department = department;
-        this.address = address;
-        this.createdOn = createdOn;
-        this.updatedOn = updatedOn;
-    }
+
+
+
 }

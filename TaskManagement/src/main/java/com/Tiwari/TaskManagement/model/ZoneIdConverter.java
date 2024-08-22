@@ -9,6 +9,7 @@ public class ZoneIdConverter implements AttributeConverter<ZoneId, String> {
 
     @Override
     public String convertToDatabaseColumn(ZoneId zoneId) {
+        
         return zoneId != null ? zoneId.getId() : null;
     }
 

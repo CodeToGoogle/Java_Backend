@@ -3,16 +3,20 @@ package com.Tiwari.TaskManagement;
 
 import com.Tiwari.TaskManagement.model.Task;
 import com.Tiwari.TaskManagement.model.TaskStatus;
+import com.Tiwari.TaskManagement.model.User;
 import com.Tiwari.TaskManagement.repository.TaskRepository;
+import com.Tiwari.TaskManagement.repository.UserRepository;
 import com.Tiwari.TaskManagement.service.TaskService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,10 +28,17 @@ public class TaskServiceTest {
     @Mock
     private TaskRepository taskRepository;
 
+    @Mock
+    User user;
+
+    @Mock
+    UserRepository userRepository;
+
     @InjectMocks
     private TaskService taskService;
 
     public TaskServiceTest() {
+
         MockitoAnnotations.openMocks(this);
     }
 
@@ -39,7 +50,13 @@ public class TaskServiceTest {
         task.setStatus(TaskStatus.PENDING);
         task.setCreatedAt(LocalDateTime.now());
         task.setUpdatedAt(LocalDateTime.now());
+        User mockUser = new User();
+        mockUser.setId(1l);
+        mockUser.setTimeZone(ZoneId.of("UTC"));
+        task.setAssignedTo(mockUser);
 
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(mockUser));
         when(taskRepository.save(any(Task.class))).thenReturn(task);
 
         Task createdTask = taskService.createTask(task);
@@ -67,6 +84,9 @@ public class TaskServiceTest {
         Task task = new Task();
         task.setId(1L);
         task.setTitle("Old Title");
+        User mockUser = new User();
+        mockUser.setTimeZone(ZoneId.of("UTC"));
+        task.setAssignedTo(mockUser);
 
         Task updatedTaskDetails = new Task();
         updatedTaskDetails.setTitle("New Title");

@@ -26,13 +26,13 @@ public class TaskService {
     private UserRepository userRepository;
 
     public Task createTask(Task task) {
-        task.setAssignedTo(userRepository.findById(task.getAssignedTo().getId())
+        task.setAssignedTo(userRepository.findById(task.getAssignedTo().getId()) //assigning task to user
                 .orElseThrow(() -> new RuntimeException("User not found")));
 
 
 
         ZoneId zoneId;
-        if (task.getAssignedTo().getTimeZone() != null) {
+        if (task.getAssignedTo().getTimeZone() != null) {    //if user already have the timezone, there's no need to fetch again
             zoneId = ZoneId.of(String.valueOf(task.getAssignedTo().getTimeZone()));
         } else {
             zoneId = ZoneId.of("UTC"); // Default to UTC if no timezone is provided

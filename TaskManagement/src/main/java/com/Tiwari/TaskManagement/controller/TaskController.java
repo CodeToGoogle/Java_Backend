@@ -23,6 +23,7 @@ public class TaskController {
 
     @GetMapping
     public List<Task> getAllTasks() {
+
         return taskService.getAllTasks();
     }
 
@@ -41,6 +42,6 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();  //returns a builder with empty body
     }
 }
